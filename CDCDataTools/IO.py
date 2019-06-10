@@ -18,6 +18,15 @@ infant_death_filenames = {2008:'infant_deaths_2008_with_headers.csv',
                           2014:'infant_deaths_2014_with_headers.csv',
                           2015:'infand_deaths_2015_with_headers.csv',
                           2016:'infant_deaths_2016_with_headers.csv'}
+live_birth_filenames   = {2008:'live_births_2008_with_headers.csv',
+                          2009:'live_births_2009_with_headers.csv',
+                          2010:'live_births_2010_with_headers.csv',
+                          2011:'live_births_2011_with_headers.csv',
+                          2012:'live_births_2012_with_headers.csv',
+                          2013:'live_births_2013_with_headers.csv',
+                          2014:'live_births_2014_with_headers.csv',
+                          2015:'live_births_2015_with_headers.csv',
+                          2016:'live_births_2016_with_headers.csv'}
 import os
 import pandas as pd
 __data_directory__ = None
@@ -75,10 +84,15 @@ def readCDC(filename, varnames ) :
        myframe =  pd.DataFrame(datadict)       
        return myframe
 #
-def readDWH(year,varnames):
+def readDWH(year,varnames,infantDeath=True):
+#    if infant death flag is true read
+#    the infant death file if not read live birth
 #    if year in infant_death_filenames:
     try:
-        filename = infant_death_filenames[year]
+        if infantDeath:
+            filename = infant_death_filenames[year]
+        else:
+            filename = live_birth_filenames[year]
         if not (__data_directory__ is None):
             deadfile = os.path.join(__data_directory__,filename)
             if(os.path.exists(deadfile)):

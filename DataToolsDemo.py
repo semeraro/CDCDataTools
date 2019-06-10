@@ -30,6 +30,7 @@ except RuntimeError:
 # Create the pandas dataframe
 columns = [clinical_age,obstetric_age,resident,clinical_flag]
 dead = IO.readDWH(2008,columns)
+live = IO.readDWH(2008,columns,infantDeath=False)
 #
 # remove non residents
 CDCFilters.remove_nonresidents(dead,inplace=True)
